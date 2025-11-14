@@ -347,7 +347,7 @@ function App() {
             </div>
 
             <div className="group rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <img src="https://sdgprivatefinance.undp.org/sites/default/files/styles/1392x746/public/opportunity/adhy-savala-zbpgmGe27p8-unsplash_0.jpg?itok=-kivfQzw" alt="Hospital Infrastructure Development" className="w-full h-40 object-cover block" />
+              <img src="https://kims.org.uk/wp-content/uploads/2019/01/Landing-page_Theatres.jpg" alt="Hospital Infrastructure Development" className="w-full h-40 object-cover block" />
               <div className="p-5">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-md bg-[#1A328A]/10 text-[#1A328A] grid place-content-center border border-[#1A328A]/20">
