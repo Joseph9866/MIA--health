@@ -61,11 +61,12 @@ function Faq() {
 
 function App() {
   const year = new Date().getFullYear()
+  const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
     <>
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200">
+      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-slate-200 relative">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
             <a href="#" className="flex items-center gap-3 group">
@@ -148,15 +149,92 @@ function App() {
             </nav>  
 
             <div className="flex items-center gap-3">
+              <button
+                type="button"
+                className="md:hidden inline-flex items-center rounded-md border border-slate-200 px-2.5 py-2 text-slate-800 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A328A]/40"
+                aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={mobileOpen}
+                onClick={() => setMobileOpen((v) => !v)}
+              >
+                {mobileOpen ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="x" className="h-5 w-5"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="menu" className="h-5 w-5"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+                )}
+              </button>
               <a href="#contact" className="hidden sm:inline-flex items-center rounded-md border border-slate-200 px-3.5 py-2 text-sm font-medium text-slate-800 hover:bg-slate-50 hover:border-slate-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A328A]/40 font-space-grotesk">
                 Talk to an expert
               </a>
-              <a href="#cta" className="inline-flex items-center rounded-md bg-[#1A328A] px-3.5 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#162A74] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A328A]/50 font-space-grotesk">
+              <a href="#cta" className="hidden md:inline-flex items-center rounded-md bg-[#1A328A] px-3.5 py-2 text-sm font-medium text-white shadow-sm hover:bg-[#162A74] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A328A]/50 font-space-grotesk">
                 Get Started
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="arrow-right" className="lucide lucide-arrow-right ml-2 h-4 w-4"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
               </a>
             </div>
           </div>
+          {mobileOpen && (
+            <div className="md:hidden absolute right-4 top-16 w-56 rounded-lg border border-slate-200 bg-white shadow-lg py-2">
+              <a
+                href="#services"
+                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 font-space-grotesk"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('services')
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  setMobileOpen(false)
+                }}
+              >
+                Services
+              </a>
+              <a
+                href="#why-us"
+                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 font-space-grotesk"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('why-us')
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  setMobileOpen(false)
+                }}
+              >
+                Why Us
+              </a>
+              <a
+                href="#outcomes"
+                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 font-space-grotesk"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('outcomes')
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  setMobileOpen(false)
+                }}
+              >
+                Outcomes
+              </a>
+              <a
+                href="#about"
+                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 font-space-grotesk"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('about')
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  setMobileOpen(false)
+                }}
+              >
+                About
+              </a>
+              <a
+                href="#contact"
+                className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 font-space-grotesk"
+                onClick={(e) => {
+                  e.preventDefault()
+                  const el = document.getElementById('contact')
+                  el?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  setMobileOpen(false)
+                }}
+              >
+                Contact
+              </a>
+            </div>
+          )}
         </div>
       </header>
 
