@@ -251,7 +251,7 @@ function App() {
                    Transforming Global Health Systems
               </h1>
               <p className="mt-5 text-[15px] sm:text-base leading-relaxed text-slate-600 font-space-grotesk">
-                At MIA Health Solutions, we believe that every healthcare institution has the potential to deliver world-class services with the right systems, people, and strategy in place. We are a hospital management consultancy dedicated to driving operational excellence, improving patient outcomes, and ensuring financial sustainability for healthcare organizations across Africa.
+                At MIA Health Solutions, we believe that every healthcare institution has the potential to deliver world-class services with the right systems, people, and strategy in place. We are a hospital management consultancy dedicated to driving operational excellence, improving patient outcomes, and ensuring financial sustainability for healthcare organizations across the globe.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a href="#services" className="inline-flex items-center rounded-md bg-[#1A328A] px-4 py-2.5 text-sm font-medium text-white shadow-sm hover:bg-[#162A74] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1A328A]/50 font-space-grotesk">
@@ -814,7 +814,15 @@ function App() {
               </div>
 
               <div className="mt-6 rounded-xl overflow-hidden border border-slate-200">
-                <img src="https://kims.org.uk/wp-content/uploads/2019/01/Landing-page_Theatres.jpg" alt="Healthcare strategy session" className="h-56 w-full object-cover" />
+                <iframe
+                  title="MIA Health Solutions Location"
+                  src="https://www.google.com/maps?q=-1.2070012,36.7832944&z=16&output=embed"
+                  className="w-full h-56"
+                  style={{ border: 0 }}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                ></iframe>
               </div>
             </div>
           </div>
