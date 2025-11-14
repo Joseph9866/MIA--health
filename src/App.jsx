@@ -363,7 +363,7 @@ function App() {
             </div>
 
             <div className="group rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1523580846011-d3a5bc25702b?q=80&w=1200&auto=format&fit=crop" alt="Training and Capacity Building" className="w-full h-40 object-cover block" />
+              <img src="https://41809.fs1.hubspotusercontent-na1.net/hubfs/41809/Mentoring%20in%20Health%20Care%20(1).jpg" alt="Training and Capacity Building" className="w-full h-40 object-cover block" />
               <div className="p-5">
               <div className="flex items-center gap-3">
                 <div className="h-9 w-9 rounded-md bg-[#1A328A]/10 text-[#1A328A] grid place-content-center border border-[#1A328A]/20">
@@ -563,7 +563,7 @@ function App() {
             <div className="order-2 lg:order-1">
               <h3 className="text-3xl sm:text-4xl tracking-tight text-slate-900 font-space-grotesk font-medium">Who We Are</h3>
               <p className="mt-3 text-[15px] sm:text-base text-slate-600 font-space-grotesk">
-                MIA Health Solutions is a leading healthcare consultancy committed to transforming Global healthcare through innovation, excellence, and compassion.
+                MIA Health Solutions is a leading health systems consultancy committed to transforming global healthcare landscapes through innovation, excellence, and compassion.
               </p>
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
@@ -578,7 +578,7 @@ function App() {
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="target" className="lucide lucide-target h-4.5 w-4.5 text-[#1A328A]"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
                     <div className="text-sm font-medium text-slate-900 font-space-grotesk">Mission</div>
                   </div>
-                  <p className="mt-1.5 text-sm text-slate-600 font-space-grotesk">Pursuing innovative solutions for a healthy society through, social behaviour change andexcellent health care management.</p>
+                  <p className="mt-1.5 text-sm text-slate-600 font-space-grotesk">Pursuing innovative solutions for a healthy society through, social behaviour change and excellent healthcare management.</p>
                 </div>
               </div>
             </div>
