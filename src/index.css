@@ -7,3 +7,21 @@
   --font-montserrat: var(--font-manrope);
 }
 
+@keyframes marquee-rtl {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track-rtl {
+  animation: marquee-rtl 15s linear infinite;
+  will-change: transform;
+}
+
+.marquee-track-rtl:hover {
+  animation-play-state: paused;
+}
+

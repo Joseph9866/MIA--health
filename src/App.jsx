@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 function Faq() {
   const [openIndex, setOpenIndex] = useState(null)
@@ -62,6 +62,44 @@ function Faq() {
 function App() {
   const year = new Date().getFullYear()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const marqueeRef = useRef(null)
+  const pauseRef = useRef(false)
+
+  useEffect(() => {
+    const track = marqueeRef.current
+    if (!track) return
+    let x = 0
+    let prev = performance.now()
+    let raf
+    const speed = 60 // px per second
+
+    const getGap = () => {
+      const cs = getComputedStyle(track)
+      const gap = parseFloat(cs.columnGap || cs.gap || '0')
+      return isNaN(gap) ? 0 : gap
+    }
+
+    const tick = (now) => {
+      const dt = (now - prev) / 1000
+      prev = now
+      if (!pauseRef.current) {
+        x -= speed * dt
+        const first = track.firstElementChild
+        if (first) {
+          const itemWidth = first.offsetWidth + getGap()
+          while (-x >= itemWidth) {
+            track.appendChild(first)
+            x += itemWidth
+          }
+        }
+        track.style.transform = `translateX(${x}px)`
+      }
+      raf = requestAnimationFrame(tick)
+    }
+
+    raf = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(raf)
+  }, [])
 
   return (
     <>
@@ -600,55 +638,61 @@ function App() {
 
           <div className="mt-12">
             <h4 className="text-3xl sm:text-4xl tracking-tight text-slate-900 font-space-grotesk font-medium">Our Core Values</h4>
-            <div className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <img src="https://arabinsightscaremagazine.com/wp-content/uploads/2025/06/Building-a-Culture-of-Healthcare-Excellence-in-Medical-Institutions.jpg" alt="Excellence" className="w-full h-40 object-cover block" />
-                <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="sparkles" className="lucide lucide-sparkles h-5 w-5 text-[#1A328A]"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
-                  <div className="text-sm font-medium text-slate-900 font-space-grotesk">Excellence</div>
+            <div
+              className="mt-6 overflow-hidden"
+              onMouseEnter={() => (pauseRef.current = true)}
+              onMouseLeave={() => (pauseRef.current = false)}
+            >
+              <div ref={marqueeRef} className="flex flex-nowrap gap-5 will-change-transform">
+                <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden shrink-0 w-72 sm:w-80">
+                  <img src="https://arabinsightscaremagazine.com/wp-content/uploads/2025/06/Building-a-Culture-of-Healthcare-Excellence-in-Medical-Institutions.jpg" alt="Excellence" className="w-full h-40 object-cover block" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="sparkles" className="lucide lucide-sparkles h-5 w-5 text-[#1A328A]"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"></path><path d="M20 2v4"></path><path d="M22 4h-4"></path><circle cx="4" cy="20" r="2"></circle></svg>
+                      <div className="text-sm font-medium text-slate-900 font-space-grotesk">Excellence</div>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Delivering the highest quality in healthcare management.</p>
+                  </div>
                 </div>
-                <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Delivering the highest quality in healthcare management.</p>
+                <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden shrink-0 w-72 sm:w-80">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl_wyNnRoO9uTd-9Ge3bPbBHLD6Tt6A__sMQ&s" alt="Compassion" className="w-full h-40 object-cover block" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="heart" className="lucide lucide-heart h-5 w-5 text-[#1A328A]"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path></svg>
+                      <div className="text-sm font-medium text-slate-900 font-space-grotesk">Compassion</div>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Placing patients at the heart of every decision.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRl_wyNnRoO9uTd-9Ge3bPbBHLD6Tt6A__sMQ&s" alt="Compassion" className="w-full h-40 object-cover block" />
-                <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="heart" className="lucide lucide-heart h-5 w-5 text-[#1A328A]"><path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"></path></svg>
-                  <div className="text-sm font-medium text-slate-900 font-space-grotesk">Compassion</div>
+                <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden shrink-0 w-72 sm:w-80">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-g2hW7UgH0BI6wjBl7I4q38kdqnxW0SPTnQ&s" alt="Innovation" className="w-full h-40 object-cover block" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="lightbulb" className="lucide lucide-lightbulb h-5 w-5 text-[#1A328A]"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
+                      <div className="text-sm font-medium text-slate-900 font-space-grotesk">Innovation</div>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Embracing new ideas and technologies.</p>
+                  </div>
                 </div>
-                <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Placing patients at the heart of every decision.</p>
+                <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden shrink-0 w-72 sm:w-80">
+                  <img src="https://pp-cdn.phenompeople.com/CareerConnectResources/prod/CHENUS/images/EnablingCollaborationFosteringTeamworkinHealthcareEnvironments-1719241343638.jpg" alt="Collaboration" className="w-full h-40 object-cover block" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="handshake" className="lucide lucide-handshake h-5 w-5 text-[#1A328A]"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="M21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg>
+                      <div className="text-sm font-medium text-slate-900 font-space-grotesk">Collaboration</div>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Building strong partnerships for lasting impact.</p>
+                  </div>
                 </div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-g2hW7UgH0BI6wjBl7I4q38kdqnxW0SPTnQ&s" alt="Innovation" className="w-full h-40 object-cover block" />
-                <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="lightbulb" className="lucide lucide-lightbulb h-5 w-5 text-[#1A328A]"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path></svg>
-                  <div className="text-sm font-medium text-slate-900 font-space-grotesk">Innovation</div>
-                </div>
-                <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Embracing new ideas and technologies.</p>
-                </div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <img src="https://pp-cdn.phenompeople.com/CareerConnectResources/prod/CHENUS/images/EnablingCollaborationFosteringTeamworkinHealthcareEnvironments-1719241343638.jpg" alt="Collaboration" className="w-full h-40 object-cover block" />
-                <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="handshake" className="lucide lucide-handshake h-5 w-5 text-[#1A328A]"><path d="m11 17 2 2a1 1 0 1 0 3-3"></path><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path><path d="M21 3 1 11h-2"></path><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path><path d="M3 4h8"></path></svg>
-                  <div className="text-sm font-medium text-slate-900 font-space-grotesk">Collaboration</div>
-                </div>
-                <p className="mt-2 text-sm text-slate-600 font-space-grotesk">Building strong partnerships for lasting impact.</p>
-                </div>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden">
-                <img src="https://www.nursingprocess.org/bimg/integrity-in-nursing.webp" alt="Integrity" className="w-full h-40 object-cover block" />
-                <div className="p-5">
-                <div className="flex items-center gap-2">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="shield-check" className="lucide lucide-shield-check h-5 w-5 text-[#1A328A]"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
-                  <div className="text-sm font-medium text-slate-900 font-space-grotesk">Integrity</div>
-                </div>
-                <p className="mt-2 text-sm text-slate-600 font-manrope">Ensuring transparency and accountability.</p>
+                <div className="rounded-xl border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow overflow-hidden shrink-0 w-72 sm:w-80">
+                  <img src="https://www.nursingprocess.org/bimg/integrity-in-nursing.webp" alt="Integrity" className="w-full h-40 object-cover block" />
+                  <div className="p-5">
+                    <div className="flex items-center gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" data-lucide="shield-check" className="lucide lucide-shield-check h-5 w-5 text-[#1A328A]"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg>
+                      <div className="text-sm font-medium text-slate-900 font-space-grotesk">Integrity</div>
+                    </div>
+                    <p className="mt-2 text-sm text-slate-600 font-manrope">Ensuring transparency and accountability.</p>
+                  </div>
                 </div>
               </div>
             </div>
